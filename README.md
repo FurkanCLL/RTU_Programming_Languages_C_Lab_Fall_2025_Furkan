@@ -118,3 +118,6 @@ make
   Use `getchar()` or prefer `fgets()` + `sscanf()` for robust input.
 
 Happy hacking! 🎯
+
+## Lab 1 Note
+Successfully built and ran ./bin/hello with custom message.
