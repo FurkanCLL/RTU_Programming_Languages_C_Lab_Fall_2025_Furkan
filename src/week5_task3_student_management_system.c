@@ -1,3 +1,5 @@
+// Name: Furkan Ciloglu
+// Student ID: 231ADB104
 // week5_task3_student_management_system.c
 // Task 3: Mini-project – Student management system with file persistence
 // Week 5 – Files & Modular Programming
@@ -29,6 +31,7 @@ int main(void) {
     int choice;
 
     // TODO: Load existing data from file using load_students()
+    count = load_students(students);
 
     do {
         printf("\n=== Student Management System ===\n");
@@ -37,20 +40,23 @@ int main(void) {
         printf("3. Save and Exit\n");
         printf("Select an option: ");
         scanf("%d", &choice);
-        getchar(); // clear newline
 
         switch (choice) {
             case 1:
                 // TODO: Call list_students()
+                list_students(students, count);
                 break;
             case 2:
                 // TODO: Call add_student()
+                add_student(students, &count);
                 break;
             case 3:
                 // TODO: Call save_students() and exit loop
+                save_students(students, count);
+                printf("Data saved. Goodbye!\n");
                 break;
             default:
-                printf("Invalid option. Try again.\n");
+                printf("Invalid option.\n");
         }
     } while (choice != 3);
 
@@ -60,24 +66,61 @@ int main(void) {
 // TODO: Implement load_students()
 // Open DATA_FILE, read records until EOF, return number of records loaded
 int load_students(Student arr[]) {
-    // ...
-    return 0;
+    FILE *fp = fopen(DATA_FILE, "r");
+    if (fp == NULL) return 0;  // if file doesn't exist, start empty
+
+    int count = 0;
+    while (count < MAX_STUDENTS &&
+           fscanf(fp, "%49s %d %f",
+                  arr[count].name, &arr[count].id, &arr[count].gpa) == 3) {
+        count++;
+    }
+    fclose(fp);
+    return count;
 }
 
 // TODO: Implement save_students()
 // Write all students to DATA_FILE
 void save_students(Student arr[], int count) {
-    // ...
+    FILE *fp = fopen(DATA_FILE, "w");
+    if (fp == NULL) {
+        printf("Could not open %s for writing.\n", DATA_FILE);
+        return;
+    }
+    for (int i = 0; i < count; i++) {
+        fprintf(fp, "%s %d %.2f\n", arr[i].name, arr[i].id, arr[i].gpa);
+    }
+    fclose(fp);
 }
 
 // TODO: Implement add_student()
 // Read input from user and append to array
 void add_student(Student arr[], int *count) {
-    // ...
+    if (*count >= MAX_STUDENTS) {
+        printf("List is full.\n");
+        return;
+    }
+    Student s;
+    printf("Enter name: ");
+    scanf("%49s", s.name);
+    printf("Enter ID: ");
+    scanf("%d", &s.id);
+    printf("Enter GPA: ");
+    scanf("%f", &s.gpa);
+
+    arr[*count] = s;
+    (*count)++;
+    printf("Student added.\n");
 }
 
 // TODO: Implement list_students()
 // Print all students in readable format
 void list_students(Student arr[], int count) {
-    // ...
+    if (count == 0) {
+        printf("(No students)\n");
+        return;
+    }
+    for (int i = 0; i < count; i++) {
+        printf("%d - %s (GPA %.2f)\n", arr[i].id, arr[i].name, arr[i].gpa);
+    }
 }
