@@ -1,6 +1,6 @@
 /*
  * week4_2_struct_student.c
- * Author: Furkan Ciloglu
+ * Name: Furkan Ciloglu
  * Student ID: 231ADB104
  * Description:
  *   Demonstrates defining and using a struct in C.

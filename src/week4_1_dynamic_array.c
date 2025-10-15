@@ -1,6 +1,6 @@
 /*
  * week4_1_dynamic_array.c
- * Author: Furkan Ciloglu
+ * Name: Furkan Ciloglu
  * Student ID: 231ADB104
  * Description:
  *   Demonstrates creation and usage of a dynamic array using malloc.

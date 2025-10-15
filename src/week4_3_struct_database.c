@@ -1,6 +1,6 @@
 /*
  * week4_3_struct_database.c
- * Author: Furkan Ciloglu
+ * Name: Furkan Ciloglu
  * Student ID: 231ADB104
  * Description:
  *   Simple in-memory "database" using an array of structs.
